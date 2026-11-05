@@ -1166,7 +1166,7 @@ html.gated .hero .names > *,html.gated .hero .slide img{animation-play-state:pau
 <script>
 // Replies and the guest list live in Amanda's Google Sheet; this talks to its script.
 window.TP = (function(){
-  var URL = "http://localhost:8790/exec", cache = {};
+  var URL = "https://script.google.com/macros/s/AKfycbyOlQv_UvxqQkdExIMqPJ5FaeA27TETkEze8b0xVLlHZGfALS56cvUoJ-NydHjXhflBuQ/exec", cache = {};
   function get(p){ return fetch(URL + '?' + new URLSearchParams(p).toString()).then(function(r){ return r.json(); }); }
   return {
     gate: function(f, l){ return get({ action: 'gate', first: f, last: l }).then(function(r){ if (r && r.ok) cache[r.party.id] = r; return r; }); },
