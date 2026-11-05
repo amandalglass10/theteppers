@@ -330,6 +330,9 @@ main#top{margin-top:calc(-1 * var(--nav-h) - 1px)}
 .frame-bar{position:absolute;inset:auto 8px 14px 8px;z-index:21;display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
 .frame-bar button{min-height:40px;padding:0 16px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;cursor:pointer}
 .frame-bar button:first-child{background:var(--ink);color:var(--paper)}
+.framing-on .scroll-cue{display:none !important}
+.frame-zoom{display:flex;align-items:center;gap:10px;flex-basis:100%;justify-content:center;padding:6px 12px;background:var(--paper);border:1px solid var(--ink);color:var(--ink);font-family:var(--f-body);font-size:15px}
+.frame-zoom input{width:min(220px,55vw);accent-color:var(--green)}
 .frame-hint{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:7;background:rgba(47,52,38,.78);color:var(--on-dark);padding:10px 18px;font-style:italic;font-size:16px;pointer-events:none;white-space:nowrap}
 .edit-msg{background:var(--paper);border:1px solid var(--rule);padding:8px 14px;font-style:italic;font-size:16px;max-width:min(360px,70vw)}
 
@@ -1841,7 +1844,8 @@ Bring your swimsuit, a cover-up and sunglasses!</p></div></div></div>
   var framing = {"hero": {"d": "50.0% 55.9%", "m": ""}, "hero-2": {"d": "50.0% 57.1%", "m": ""}, "hero-3": {"d": "50.0% 61.7%", "m": ""}, "night-1": {"d": "50.0% 48.1%", "m": ""}, "night-2": {"d": "50.0% 29.6%", "m": "50.0% 22.0%"}, "night-3": {"d": "50.0% 100.0%", "m": "50.0% 45.0%"}, "registry": {"d": "50.0% 17.9%", "m": ""}, "travel": {"d": "50.0% 100.0%", "m": ""}}, db = null, mqNarrow = matchMedia('(max-width: 899px)');
   function key(){ return mqNarrow.matches ? 'm' : 'd'; }
   function posFor(name){ var f = framing[name]; if (!f) return ''; return (key() === 'm' ? (f.m || f.d) : (f.d || f.m)) || ''; }
-  function applyOne(el){ var n = el.dataset.slot; if (!n || el.closest('.framing')) return; var v = posFor(n); el.style.objectPosition = v; }
+  function show(el, v){ var m = /^\s*(-?[\d.]+%)\s+(-?[\d.]+%)(?:\s+([\d.]+))?/.exec(v || ''); if (!m) { el.style.objectPosition = v || ''; el.style.scale = ''; return; } var z = parseFloat(m[3] || '1'); el.style.objectPosition = m[1] + ' ' + m[2]; el.style.transformOrigin = m[1] + ' ' + m[2]; el.style.scale = z > 1.001 ? String(z) : ''; }
+  function applyOne(el){ var n = el.dataset.slot; if (!n || el.closest('.framing')) return; show(el, posFor(n)); }
   function applyAll(){ document.querySelectorAll('[data-slot]').forEach(applyOne); }
   applyAll(); if (mqNarrow.addEventListener) mqNarrow.addEventListener('change', applyAll);
   new MutationObserver(function(muts){
@@ -1872,8 +1876,8 @@ Bring your swimsuit, a cover-up and sunglasses!</p></div></div></div>
     var w = media.clientWidth, h = media.clientHeight;
     function pct(v, size){ return /%$/.test(v) ? parseFloat(v) : (/px$/.test(v) ? 50 : 50); }
     var pos = parse(media.style.objectPosition) || [pct(cs[0]), pct(cs[1] || '50%')];
-    var orig = media.style.objectPosition;
-    active = { box: box, media: media, name: name, pos: pos, orig: orig, moved: false };
+    var orig = posFor(name), zm = /\s([\d.]+)\s*$/.exec(orig || '');
+    active = { box: box, media: media, name: name, pos: pos, orig: orig, zoom: zm ? parseFloat(zm[1]) : 1, moved: false };
     box.classList.add('framing'); document.body.classList.add('framing-on');
     var hint = document.createElement('div'); hint.className = 'frame-hint'; hint.textContent = 'Drag the photo to reposition it'; box.appendChild(hint); active.hint = hint;
     setTimeout(function(){ if (active && active.hint) active.hint.remove(); }, 2200);
@@ -1885,9 +1889,17 @@ Bring your swimsuit, a cover-up and sunglasses!</p></div></div></div>
     var reset = document.createElement('button'); reset.type = 'button'; reset.textContent = 'Center';
     save.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); if (active) active.saveAnyway = true; stop(true); });
     cancel.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); stop(false); });
-    reset.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); active.pos = [50, 50]; active.moved = true; set(); });
-    bar.appendChild(save); bar.appendChild(reset); bar.appendChild(cancel); box.appendChild(bar); active.bar = bar;
-    function set(){ active.media.style.objectPosition = active.pos[0].toFixed(1) + '% ' + active.pos[1].toFixed(1) + '%'; }
+    reset.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); active.pos = [50, 50]; active.zoom = 1; var r = active.bar && active.bar.querySelector('input'); if (r) r.value = '1'; active.moved = true; set(); });
+    var zl = document.createElement('label'); zl.className = 'frame-zoom'; zl.textContent = 'Zoom';
+    var zr = document.createElement('input'); zr.type = 'range'; zr.min = '1'; zr.max = '2.5'; zr.step = '0.05'; zr.value = String(active.zoom);
+    ['pointerdown','touchstart','click'].forEach(function(ev){ zr.addEventListener(ev, function(e){ e.stopPropagation(); }); });
+    zr.addEventListener('input', function(){ active.zoom = parseFloat(zr.value); active.moved = true; set(); });
+    zl.appendChild(zr);
+    bar.appendChild(zl); bar.appendChild(save); bar.appendChild(reset); bar.appendChild(cancel); box.appendChild(bar); active.bar = bar;
+    var me = active;
+    function val(){ var v = me.pos[0].toFixed(1) + '% ' + me.pos[1].toFixed(1) + '%'; return me.zoom > 1.001 ? v + ' ' + me.zoom.toFixed(2) : v; }
+    function set(){ show(me.media, val()); }
+    active.val = val;
     active.set = set; set();
     var drag = null;
     function size(){
@@ -1903,8 +1915,9 @@ Bring your swimsuit, a cover-up and sunglasses!</p></div></div></div>
     active.move = function(e){
       if (!drag) return;
       var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
-      var nx = drag.o[0] > 0 ? drag.p[0] - dx / drag.o[0] * 100 : drag.p[0];
-      var ny = drag.o[1] > 0 ? drag.p[1] - dy / drag.o[1] * 100 : drag.p[1];
+      var zz = active.zoom || 1, ox = drag.o[0] + active.media.clientWidth * (zz - 1), oy = drag.o[1] + active.media.clientHeight * (zz - 1);
+      var nx = ox > 0 ? drag.p[0] - dx / ox * 100 : drag.p[0];
+      var ny = oy > 0 ? drag.p[1] - dy / oy * 100 : drag.p[1];
       active.pos = [Math.max(0, Math.min(100, nx)), Math.max(0, Math.min(100, ny))]; active.moved = true; set();
     };
     active.up = function(){ drag = null; box.classList.remove('dragging'); };
@@ -1918,15 +1931,15 @@ Bring your swimsuit, a cover-up and sunglasses!</p></div></div></div>
     a.box.classList.remove('framing', 'dragging'); document.body.classList.remove('framing-on');
     if (a.hint) a.hint.remove(); if (a.bar) a.bar.remove();
     var tools = a.box.querySelector('.slot-tools'); if (tools) tools.hidden = false;
-    if (!keep) { a.media.style.objectPosition = a.orig; return; }
+    if (!keep) { show(a.media, a.orig); return; }
     if (!a.moved && !a.saveAnyway) return;
-    var v = a.pos[0].toFixed(1) + '% ' + a.pos[1].toFixed(1) + '%';
+    var v = a.val();
     var cur = Object.assign({}, framing[a.name] || {}); cur[key()] = v;
     try {
       framing[a.name] = cur;
       await db.doc('framing/' + a.name).set(cur);
       msg(key() === 'm' ? 'Position saved for phones. Open the page on a computer to set the wide-screen crop.' : 'Position saved for wide screens. Phones use it too until you set one on a phone.');
-    } catch (err) { msg('Couldn\'t save the position. Try again.'); a.media.style.objectPosition = a.orig; }
+    } catch (err) { msg('Couldn\'t save the position. Try again.'); show(a.media, a.orig); }
   }
   // leaving edit mode ("Done editing") keeps the position you dragged to; only Cancel or Esc throws it away
   document.addEventListener('editmode', function(e){ if (!e.detail && active) stop(true); });
