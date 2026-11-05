@@ -1829,7 +1829,7 @@ Bring your swimsuit, a cover-up and sunglasses!</p></div></div></div>
     slides.forEach(function(s, k){ s.classList.toggle('on', k === i); s.setAttribute('aria-hidden', k === i ? 'false' : 'true'); });
     dots.forEach(function(d, k){ d.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
   }
-  function paused(){ return reduce || document.hidden || document.body.classList.contains('editing'); }
+  function paused(){ return reduce || document.hidden || document.body.classList.contains('editing') || document.body.classList.contains('frame-mode'); }
   function restart(){ clearInterval(timer); timer = setInterval(function(){ if (!paused()) go(i + 1); }, HOLD); }
   go(0); restart();
 })();
@@ -1837,7 +1837,7 @@ Bring your swimsuit, a cover-up and sunglasses!</p></div></div></div>
 <script>
 // Reposition photos: editors drag a photo inside its frame to choose the crop. Saved separately for wide screens and phones.
 (function(){
-  var framing = {"hero": {"d": "50.0% 55.9%", "m": ""}, "hero-2": {"d": "50.0% 57.1%", "m": ""}, "hero-3": {"d": "50.0% 61.7%", "m": ""}, "night-1": {"d": "50.0% 48.1%", "m": ""}, "night-2": {"d": "50.0% 29.6%", "m": "50.0% 22.0%"}, "night-3": {"d": "50.0% 100.0%", "m": "50.0% 30.0%"}, "registry": {"d": "50.0% 17.9%", "m": ""}, "travel": {"d": "50.0% 100.0%", "m": ""}}, db = null, mqNarrow = matchMedia('(max-width: 899px)');
+  var framing = {"hero": {"d": "50.0% 55.9%", "m": ""}, "hero-2": {"d": "50.0% 57.1%", "m": ""}, "hero-3": {"d": "50.0% 61.7%", "m": ""}, "night-1": {"d": "50.0% 48.1%", "m": ""}, "night-2": {"d": "50.0% 29.6%", "m": "50.0% 22.0%"}, "night-3": {"d": "50.0% 100.0%", "m": "50.0% 45.0%"}, "registry": {"d": "50.0% 17.9%", "m": ""}, "travel": {"d": "50.0% 100.0%", "m": ""}}, db = null, mqNarrow = matchMedia('(max-width: 899px)');
   function key(){ return mqNarrow.matches ? 'm' : 'd'; }
   function posFor(name){ var f = framing[name]; if (!f) return ''; return (key() === 'm' ? (f.m || f.d) : (f.d || f.m)) || ''; }
   function applyOne(el){ var n = el.dataset.slot; if (!n || el.closest('.framing')) return; var v = posFor(n); el.style.objectPosition = v; }
@@ -1931,6 +1931,29 @@ Bring your swimsuit, a cover-up and sunglasses!</p></div></div></div>
   document.addEventListener('editmode', function(e){ if (!e.detail && active) stop(true); });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && active) stop(false); });
 
+  // Private reposition mode (add ?frame to the address): drag a photo, then send the positions it lists to Claude to publish.
+  if (/[?&]frame\b/.test(location.search)) {
+    document.body.classList.add('frame-mode');
+    var saved = {}, panel = document.createElement('div');
+    panel.style.cssText = 'position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;background:#F3EFE6;color:#2F3426;border:1px solid #2F3426;padding:12px 14px;font:15px/1.4 system-ui,sans-serif;box-shadow:0 8px 30px rgba(0,0,0,.25)';
+    function draw(){
+      var lines = Object.keys(saved).map(function(n){ return n + ' (' + (saved[n].k === 'm' ? 'phone' : 'computer') + '): ' + saved[n].v; });
+      panel.innerHTML = '';
+      var t = document.createElement('div'); t.style.whiteSpace = 'pre-line';
+      t.textContent = lines.length ? 'Positions to send Claude:\n' + lines.join('\n') : 'Reposition mode. Tap “Reposition” on a photo, drag it, then “Save position”. For the opening photos, pick one with the dashes at the bottom first.';
+      panel.appendChild(t);
+      if (lines.length) {
+        var c = document.createElement('button'); c.type = 'button'; c.textContent = 'Copy';
+        c.style.cssText = 'margin-top:8px;min-height:36px;padding:0 16px;border:1px solid #2F3426;background:#2F3426;color:#F3EFE6;font:inherit';
+        c.onclick = function(){ var txt = 'Photo positions: ' + lines.join('; '); (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(function(){ c.textContent = 'Copied'; }, function(){ c.textContent = 'Press and hold the text to copy'; }); };
+        panel.appendChild(c);
+      }
+    }
+    db = { doc: function(path){ return { set: function(v){ var n = path.split('/')[1], k = key(); saved[n] = { k: k, v: v[k] }; draw(); return Promise.resolve(); } }; } };
+    panel.className = 'frame-panel'; var st = document.createElement('style'); st.textContent = '.framing-on .frame-panel{display:none}'; document.head.appendChild(st);
+    document.body.appendChild(panel); draw();
+    document.querySelectorAll('[data-slot-box]').forEach(function(box){ var t = document.createElement('div'); t.className = 'slot-tools'; box.appendChild(t); addButton(t); });
+  }
   (async function(){
     if (!window.claude || !window.claude.use) return;
     var d = await claude.use('db'); if (!d) return;
