@@ -1,5 +1,16 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Amanda &amp; Joseph · Black Tie</title>
+<meta name="description" content="January 29, 2027 · The Addison, Boca Raton">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://theteppers.com/">
+<meta property="og:title" content="Amanda &amp; Joseph · Black Tie">
+<meta property="og:description" content="January 29, 2027 · The Addison, Boca Raton">
+<meta property="og:image" content="https://theteppers.com/img/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="1500">
+<meta property="og:image:alt" content="Amanda and Joey on the beach">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://theteppers.com/img/share.jpg">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Pinyon+Script&display=swap">
@@ -150,7 +161,7 @@ main#top{margin-top:calc(-1 * var(--nav-h) - 1px)}
 
 /* film: starts letterboxed in the column, then grows to fill the screen as you scroll, holds, and scrolls away */
 .film{position:relative;height:520vh}
-.film-pin{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.film-pin{position:sticky;top:0;height:100vh;height:100lvh;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .film-fig{margin:0;position:relative;display:flex;flex-direction:column;align-items:center;transform:translateY(var(--fy,0px))}
 .film:not(.static) .film .cap,.film:not(.static) .cap{position:absolute;top:100%;left:50%;transform:translateX(-50%)}
 .film .ph{width:var(--fw,1088px);height:var(--fh,466px);max-width:none;background:#2b2a22;flex:none}
@@ -362,7 +373,8 @@ main#top{margin-top:calc(-1 * var(--nav-h) - 1px)}
   .nights .pin{display:flex;flex-direction:column;padding-top:calc(var(--nav-h) + 12px)}
   .n-photos{width:calc(100% - 40px);height:clamp(150px,calc(100vh - var(--nav-h) - 480px),36vh);height:clamp(150px,calc(100svh - var(--nav-h) - 480px),36svh);aspect-ratio:auto;margin:0 auto;flex:none}
   .n-num .d{font-size:72px}
-  .n-copy{flex:1;margin-top:0;position:relative}
+  .n-photos{flex:1 1 auto;height:auto;min-height:150px;max-height:58svh}
+  .n-copy{flex:none;height:var(--ncopy,360px);margin-top:0;position:relative}
   .n-steps{top:18px;left:20px}
   .n-panel{left:20px;right:20px;top:48px;transform:translateY(14px)}
   .n-panel.on{transform:none}
@@ -1825,7 +1837,7 @@ Bring your swimsuit, a cover-up and sunglasses!</p></div></div></div>
 <script>
 // Reposition photos: editors drag a photo inside its frame to choose the crop. Saved separately for wide screens and phones.
 (function(){
-  var framing = {"hero": {"d": "50.0% 55.9%", "m": ""}, "hero-2": {"d": "50.0% 57.1%", "m": ""}, "hero-3": {"d": "50.0% 61.7%", "m": ""}, "night-1": {"d": "50.0% 48.1%", "m": ""}, "night-2": {"d": "50.0% 29.6%", "m": ""}, "night-3": {"d": "50.0% 100.0%", "m": ""}, "registry": {"d": "50.0% 17.9%", "m": ""}, "travel": {"d": "50.0% 100.0%", "m": ""}}, db = null, mqNarrow = matchMedia('(max-width: 899px)');
+  var framing = {"hero": {"d": "50.0% 55.9%", "m": ""}, "hero-2": {"d": "50.0% 57.1%", "m": ""}, "hero-3": {"d": "50.0% 61.7%", "m": ""}, "night-1": {"d": "50.0% 48.1%", "m": ""}, "night-2": {"d": "50.0% 29.6%", "m": "50.0% 22.0%"}, "night-3": {"d": "50.0% 100.0%", "m": "50.0% 30.0%"}, "registry": {"d": "50.0% 17.9%", "m": ""}, "travel": {"d": "50.0% 100.0%", "m": ""}}, db = null, mqNarrow = matchMedia('(max-width: 899px)');
   function key(){ return mqNarrow.matches ? 'm' : 'd'; }
   function posFor(name){ var f = framing[name]; if (!f) return ''; return (key() === 'm' ? (f.m || f.d) : (f.d || f.m)) || ''; }
   function applyOne(el){ var n = el.dataset.slot; if (!n || el.closest('.framing')) return; var v = posFor(n); el.style.objectPosition = v; }
@@ -1941,7 +1953,7 @@ Bring your swimsuit, a cover-up and sunglasses!</p></div></div></div>
   function ease(t){ return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
   function layout(){
     ticking = false;
-    var vh = window.innerHeight, vw = document.documentElement.clientWidth, narrow = vw < 700;
+    var pin = sec.querySelector('.film-pin'), vh = Math.max(window.innerHeight, pin ? pin.clientHeight : 0), vw = document.documentElement.clientWidth, narrow = vw < 700;
     var gut = vw >= 900 ? 56 : 20, w0 = Math.min(vw - gut * 2, 1088), h0 = w0 * (narrow ? 5 / 4 : 9 / 21);
     if (h0 > vh * .7) { h0 = vh * .7; }
     var r = sec.getBoundingClientRect(), total = Math.max(1, r.height - vh);
@@ -2730,6 +2742,20 @@ Bring your swimsuit, a cover-up and sunglasses!</p></div></div></div>
     tabs.forEach(function(x){ x.setAttribute('aria-selected', x === t); });
     items.forEach(function(it){ var on = it.dataset.g === t.dataset.g; it.hidden = !on; it.classList.toggle('fq-in', on); if (on) { it.classList.remove('st-i'); it.style.opacity = ''; it.style.transform = ''; } });
   }); });
+})();
+</script>
+<script>
+// Phones: size the details area to the tallest of the three nights, so the photo above can use the rest of the screen.
+(function(){
+  var copy = document.querySelector('.n-copy'); if (!copy) return;
+  var mq = matchMedia('(max-width: 899px)');
+  function fit(){
+    if (!mq.matches) { copy.style.removeProperty('--ncopy'); return; }
+    var top = 0, max = 0;
+    copy.querySelectorAll('.n-panel').forEach(function(p){ top = p.offsetTop; max = Math.max(max, p.offsetHeight); });
+    copy.style.setProperty('--ncopy', Math.ceil(top + max + 20) + 'px');
+  }
+  fit(); window.addEventListener('resize', fit); if (document.fonts) document.fonts.ready.then(fit);
 })();
 </script>
 </body></html>
