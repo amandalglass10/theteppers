@@ -1841,7 +1841,7 @@ Bring your swimsuit, a cover-up and sunglasses!</p></div></div></div>
 <script>
 // Reposition photos: editors drag a photo inside its frame to choose the crop. Saved separately for wide screens and phones.
 (function(){
-  var framing = {"hero": {"d": "50.0% 55.9%", "m": ""}, "hero-2": {"d": "50.0% 57.1%", "m": ""}, "hero-3": {"d": "50.0% 61.7%", "m": ""}, "night-1": {"d": "50.0% 48.1%", "m": ""}, "night-2": {"d": "50.0% 29.6%", "m": "50.0% 22.0%"}, "night-3": {"d": "50.0% 100.0%", "m": "50.0% 45.0%"}, "registry": {"d": "50.0% 17.9%", "m": ""}, "travel": {"d": "50.0% 100.0%", "m": ""}}, db = null, mqNarrow = matchMedia('(max-width: 899px)');
+  var framing = {"hero": {"d": "50.0% 55.9%", "m": "52.8% 67.9% 2.15"}, "hero-2": {"d": "50.0% 57.1%", "m": "49.9% 64.9% 1.75"}, "hero-3": {"d": "50.0% 61.7%", "m": "49.6% 39.1% 1.30"}, "night-1": {"d": "50.0% 48.1%", "m": ""}, "night-2": {"d": "50.0% 29.6%", "m": "50.0% 22.0%"}, "night-3": {"d": "50.0% 100.0%", "m": "50.0% 45.0%"}, "registry": {"d": "50.0% 17.9%", "m": ""}, "travel": {"d": "50.0% 100.0%", "m": ""}}, db = null, mqNarrow = matchMedia('(max-width: 899px)');
   function key(){ return mqNarrow.matches ? 'm' : 'd'; }
   function posFor(name){ var f = framing[name]; if (!f) return ''; return (key() === 'm' ? (f.m || f.d) : (f.d || f.m)) || ''; }
   function show(el, v){ var m = /^\s*(-?[\d.]+%)\s+(-?[\d.]+%)(?:\s+([\d.]+))?/.exec(v || ''); if (!m) { el.style.objectPosition = v || ''; el.style.scale = ''; return; } var z = parseFloat(m[3] || '1'); el.style.objectPosition = m[1] + ' ' + m[2]; el.style.transformOrigin = m[1] + ' ' + m[2]; el.style.scale = z > 1.001 ? String(z) : ''; }
