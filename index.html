@@ -1537,7 +1537,12 @@ section.finale .finale-line{color:var(--on-photo)}
 section.finale .finale-note{color:var(--on-photo);opacity:.88}
 section.finale .sign-with{color:var(--on-photo);margin-top:clamp(20px,2.6vw,32px)}
 section.finale .sign-logo{background:var(--on-photo)}
-@media (max-width:699px){section.finale{padding:64px 20px 60px}.fin-bg img{object-position:50% 55%}}
+section.finale{padding-bottom:0}
+section.finale > .foot{align-self:stretch;background:transparent;padding:clamp(40px,5vw,64px) 0 28px}
+section.finale .foot .tlink{color:var(--on-photo);border-color:var(--on-photo)}
+section.finale .g-switch{color:var(--on-photo);opacity:.85}
+section.finale .g-switch button{color:var(--on-photo)}
+@media (max-width:699px){section.finale{padding:64px 20px 0}.fin-bg img{object-position:50% 55%}}
 </style>
   <section class="finale" aria-label="Closing">
     <p class="label finale-label" data-edit="finale-label">The next chapter</p>
@@ -1545,18 +1550,19 @@ section.finale .sign-logo{background:var(--on-photo)}
     <p class="story finale-note" data-edit="finale-note">Every moment so far has been better because you were part of it. We can’t wait to turn the page together with you by our side!</p>
     <p class="sign-with" data-edit="sign-with">With love,</p>
     <span class="sign-names sign-logo" role="img" aria-label="Amanda &amp; Joey"></span>
+    <footer class="foot">
+      <div class="wrap">
+        <div class="bottom"><a class="tlink" href="#top" data-edit="back-to-top">Back to top</a></div>
+        <p class="g-switch" id="gateSwitch" hidden>Not <span id="gateSwitchName"></span>? <button type="button" id="gateSwitchBtn">Enter a different name</button></p>
+      </div>
+    </footer>
     <div class="fin-bg"><img data-slot="finale" src="img/prop_walk_bw.jpg" alt=""></div>
   </section>
 
 
 </main>
 
-<footer class="foot">
-  <div class="wrap">
-    <div class="bottom"><a class="tlink" href="#top" data-edit="back-to-top">Back to top</a></div>
-    <p class="g-switch" id="gateSwitch" hidden>Not <span id="gateSwitchName"></span>? <button type="button" id="gateSwitchBtn">Enter a different name</button></p>
-  </div>
-</footer>
+
 
 <div class="edit-bar" id="editBar" hidden>
   <p class="edit-msg" id="editMsg" aria-live="polite" hidden></p>
