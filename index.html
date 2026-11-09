@@ -1149,6 +1149,14 @@ html.gated .hero .names > *,html.gated .hero .slide img{animation-play-state:pau
 .d-board .sf .sp{width:calc(var(--t) * .45)}
 .env-done.has-board .d-a{animation-delay:4.4s}
 
+/* closing section: full-bleed photo (option A) */
+section.finale{position:relative;background:linear-gradient(rgba(28,32,22,.6),rgba(28,32,22,.6)),url(img/prop_walk_bw.jpg) center 38%/cover no-repeat;color:var(--on-photo);padding:clamp(64px,7vw,104px) 20px clamp(60px,6.5vw,96px)}
+section.finale .finale-label{color:var(--champagne)}
+section.finale .finale-line{color:var(--on-photo)}
+section.finale .finale-note{color:var(--on-photo);opacity:.88}
+section.finale .sign-with{color:var(--on-photo);margin-top:clamp(20px,2.6vw,32px)}
+section.finale .sign-logo{background:var(--on-photo)}
+@media (max-width:699px){section.finale{background-position:center 55%;padding:64px 20px 60px}}
 </style>
 <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
   <div class="g-door l"></div><div class="g-door r"></div><span class="g-seam" aria-hidden="true"></span>
