@@ -1149,14 +1149,6 @@ html.gated .hero .names > *,html.gated .hero .slide img{animation-play-state:pau
 .d-board .sf .sp{width:calc(var(--t) * .45)}
 .env-done.has-board .d-a{animation-delay:4.4s}
 
-/* closing section: full-bleed photo (option A) */
-section.finale{position:relative;background:linear-gradient(rgba(28,32,22,.6),rgba(28,32,22,.6)),url(img/prop_walk_bw.jpg) center 38%/cover no-repeat;color:var(--on-photo);padding:clamp(64px,7vw,104px) 20px clamp(60px,6.5vw,96px)}
-section.finale .finale-label{color:var(--champagne)}
-section.finale .finale-line{color:var(--on-photo)}
-section.finale .finale-note{color:var(--on-photo);opacity:.88}
-section.finale .sign-with{color:var(--on-photo);margin-top:clamp(20px,2.6vw,32px)}
-section.finale .sign-logo{background:var(--on-photo)}
-@media (max-width:699px){section.finale{background-position:center 55%;padding:64px 20px 60px}}
 </style>
 <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
   <div class="g-door l"></div><div class="g-door r"></div><span class="g-seam" aria-hidden="true"></span>
@@ -1531,12 +1523,29 @@ Bring your swimsuit, a cover-up and sunglasses!</p></div></div></div>
   </section>
   </div>
 
+<style>
+/* closing section: full-bleed photo (option A), swappable + repositionable via data-slot "finale" */
+section.finale{position:relative;isolation:isolate;overflow:hidden;background:#2b3022;color:var(--on-photo);padding:clamp(64px,7vw,104px) 20px clamp(60px,6.5vw,96px)}
+section.finale > *{position:relative;z-index:1}
+section.finale > .fin-bg{position:absolute;inset:0;z-index:0;margin:0}
+section.finale.armed > .fin-bg{opacity:1;transform:none;transition:none}
+.fin-bg img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 38%}
+.fin-bg::after{content:"";position:absolute;inset:0;background:rgba(28,32,22,.6);pointer-events:none}
+.editing section.finale > :not(.fin-bg){pointer-events:none}
+section.finale .finale-label{color:var(--champagne)}
+section.finale .finale-line{color:var(--on-photo)}
+section.finale .finale-note{color:var(--on-photo);opacity:.88}
+section.finale .sign-with{color:var(--on-photo);margin-top:clamp(20px,2.6vw,32px)}
+section.finale .sign-logo{background:var(--on-photo)}
+@media (max-width:699px){section.finale{padding:64px 20px 60px}.fin-bg img{object-position:50% 55%}}
+</style>
   <section class="finale" aria-label="Closing">
     <p class="label finale-label" data-edit="finale-label">The next chapter</p>
     <p class="finale-line" data-edit="story-finale">To be continued on January 29</p>
     <p class="story finale-note" data-edit="finale-note">Every moment so far has been better because you were part of it. We can’t wait to turn the page together with you by our side!</p>
     <p class="sign-with" data-edit="sign-with">With love,</p>
     <span class="sign-names sign-logo" role="img" aria-label="Amanda &amp; Joey"></span>
+    <div class="fin-bg"><img data-slot="finale" src="img/prop_walk_bw.jpg" alt=""></div>
   </section>
 
 
