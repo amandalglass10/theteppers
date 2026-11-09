@@ -229,9 +229,7 @@ main#top{margin-top:calc(-1 * var(--nav-h) - 1px)}
 .reg-inner{position:relative;z-index:2;align-self:center;padding-block:clamp(48px,6vw,80px)}
 .registry .sec-head .label{color:var(--on-photo)}
 .registry .title,.registry .lede{color:var(--on-photo)}
-.registry .lede{margin-top:34px;text-shadow:0 1px 14px rgba(0,0,0,.25)}
-.registry .links{display:flex;justify-content:center;gap:clamp(32px,6vw,80px);flex-wrap:wrap;margin-top:44px}
-.registry .tlink{color:var(--on-photo);border-bottom-color:#E6D9BF}
+.registry .lede{margin-top:34px;max-width:40ch;text-wrap:pretty;text-shadow:0 1px 14px rgba(0,0,0,.25)}
 .framing-on .reg-inner{pointer-events:none}
 
 /* questions: everything visible, no clicking */
@@ -1430,12 +1428,8 @@ It seems fitting that the next chapter should, too.</p>
         <p class="label" data-edit="registry-3">Registry</p>
         <h2 class="title" data-edit="with-gratitude">With gratitude</h2>
       </div>
-      <p class="lede" data-edit="your-presence-is-the-greatest-gift-for-t">Your presence is truly the greatest gift!
-For those who have asked, we are registered at the following.</p>
-      <div class="links">
-        <a class="tlink" href="#registry" data-edit="bloomingdale-s">[Bloomingdale's]</a>
-        <a class="tlink" href="#registry" data-edit="second-registry">[Second registry]</a>
-      </div>
+      <p class="lede" data-edit="your-presence-is-the-greatest-gift-for-t">Your presence is truly the greatest gift.
+Having been lucky enough to already make a home together, we’ve chosen not to have a traditional registry. For those who have asked, a contribution toward our next chapter would mean so much to us.</p>
     </div>
   </section>
   </div>
@@ -2390,7 +2384,7 @@ Bring your swimsuit, a cover-up and sunglasses!</p></div></div></div>
     ['.weekend2 .sec-head', '.weekend2 .sec-head > *'],
     ['.feature', '.f-card > *'],
     ['.favs', '.favs .fv-card'],
-    ['#registry', '#registry .reg-inner .label, #registry .reg-inner .title, #registry .reg-inner .lede, #registry .reg-inner .links'],
+    ['#registry', '#registry .reg-inner .label, #registry .reg-inner .title, #registry .reg-inner .lede'],
     ['#questions', '#questions .fq-side > *, #questions .acc-i'],
     ['#rsvp', '#rsvp .rs-side > *'],
     ['.foot', '.foot .wrap > *']
