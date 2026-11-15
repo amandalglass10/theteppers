@@ -1128,12 +1128,11 @@ html.gated .hero .names > *,html.gated .hero .slide img{animation-play-state:pau
 /* Personal touches for the signed-in guest */
 .f-temp{margin-top:10px;font-family:var(--f-disp);font-style:italic;font-weight:350;font-size:17px;color:var(--rose)}
 .n-panel .yc{display:inline-flex;align-items:center;gap:8px;margin:0 0 10px;padding:5px 12px 5px 10px;border:1px solid var(--champagne-line);border-radius:999px;font-family:var(--f-caps);font-weight:500;text-transform:uppercase;letter-spacing:.18em;font-size:10.5px;color:var(--green)}
-/* welcome party hosts: a small engraved calling card, double hairline frame */
-.n-panel .hosted{margin-top:18px;display:inline-flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:14px 26px 15px;border:1px solid var(--champagne-line);outline:1px solid var(--champagne-line);outline-offset:4px;background:rgba(255,255,255,.28)}
-.n-panel .hosted .h-k{display:flex;align-items:center;gap:12px;font-family:var(--f-caps);font-weight:500;text-transform:uppercase;letter-spacing:.26em;font-size:11px;line-height:1.4;color:var(--rose)}
-.n-panel .hosted .h-k::before,.n-panel .hosted .h-k::after{content:"";width:22px;height:1px;background:var(--champagne-line)}
-.n-panel .hosted .h-n{font-family:var(--f-disp);font-style:italic;font-weight:350;font-size:22px;line-height:1.25;color:var(--green)}
-@media (max-width:899px){.n-panel .hosted{margin-top:12px;padding:10px 18px 11px;gap:4px}.n-panel .hosted .h-n{font-size:18px}}
+/* welcome party hosts: the invitation line, thin capitals over the names in the wordmark's script */
+.n-panel .hosted{margin-top:22px;display:flex;flex-direction:column;gap:10px}
+.n-panel .hosted .h-k{font-family:var(--f-caps);font-weight:500;text-transform:uppercase;letter-spacing:.24em;font-size:11.5px;line-height:1.4;color:var(--rose)}
+.n-panel .hosted .h-n{font-family:var(--f-script);font-weight:400;font-size:clamp(30px,2.5vw,38px);line-height:1.25;color:var(--green);white-space:nowrap}
+@media (max-width:899px){.n-panel .hosted{margin-top:16px;gap:8px}.n-panel .hosted .h-k{font-size:10.5px}.n-panel .hosted .h-n{font-size:clamp(23px,7vw,28px)}}
 .n-panel .yc::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--champagne-line)}
 .env-done .d-song{order:3;margin-top:2px;font-family:var(--f-disp);font-style:italic;font-weight:350;font-size:16.5px;color:var(--champagne);animation:rise-in .9s var(--ease) .35s both}
 .env-done .d-h{order:1}.env-done .d-s{order:2}.env-done .d-t{order:4}.env-done .d-a{order:5}
@@ -1303,7 +1302,7 @@ It seems fitting that the next chapter should, too.</p>
         <h3 data-edit="welcome-party">Welcome Party</h3>
         <p class="venue" data-edit="the-seagate-beach-club-delray-beach">The Seagate Beach Club, Delray Beach</p>
         <p class="addr" data-edit="addr-seagate-beach-club">401 South Ocean Boulevard, Delray Beach, FL 33483</p>
-        <div class="hosted"><p class="h-k" data-edit="hosted-by-label">Hosted by</p><p class="h-n" data-edit="host-names">Mr. and Mrs. Richard N. Tepper</p></div>
+        <div class="hosted"><p class="h-k" data-edit="hosted-by-label">Kindly hosted by</p><p class="h-n" data-edit="host-names">Mr. and Mrs. Richard N. Tepper</p></div>
         <dl>
           <dt class="label" data-edit="what">What</dt><dd data-edit="what-welcome">Drinks and dinner by the water to start the weekend</dd>
           <dt class="label" data-edit="time">Time</dt><dd data-edit="seven-o-clock-in-the-evening">7:00 PM</dd>
