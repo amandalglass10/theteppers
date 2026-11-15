@@ -1851,7 +1851,7 @@ section.finale .g-switch button{color:var(--on-photo)}
 // Hero slideshow: a slow cross-fade every few seconds. Pauses while editing; reduced-motion visitors use the bars to change photos.
 (function(){
   var show = document.getElementById('heroShow'), dotsBox = document.getElementById('heroDots');
-  var slides = Array.prototype.slice.call(show.querySelectorAll('.slide')), i = 0, timer = null, HOLD = 6500;
+  var slides = Array.prototype.slice.call(show.querySelectorAll('.slide')), i = 0, timer = null, HOLD = 5000;
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var dots = slides.map(function(_, n){
     var b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Photograph ' + (n + 1)); b.setAttribute('aria-pressed', n === 0 ? 'true' : 'false');
