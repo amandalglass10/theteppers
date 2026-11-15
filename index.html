@@ -1142,6 +1142,8 @@ html.gated .hero .names > *,html.gated .hero .slide img{animation-play-state:pau
 .n-panel .hosted .h-k{font-family:var(--f-caps);font-weight:500;text-transform:uppercase;letter-spacing:.24em;font-size:11.5px;line-height:1.4;color:var(--rose)}
 .n-panel .hosted .h-n{font-family:var(--f-script);font-weight:400;font-size:clamp(30px,2.5vw,38px);line-height:1.25;color:var(--green);white-space:nowrap}
 @media (max-width:899px){.n-panel .hosted{margin-top:16px;gap:8px}.n-panel .hosted .h-k{font-size:10.5px}.n-panel .hosted .h-n{font-size:clamp(23px,7vw,28px)}}
+/* "You’re coming" sits on the date line, right-aligned, so it never pushes the panel up into the night dashes */
+.n-panel .yc{float:right;margin:-5px 0 0 12px}
 .n-panel .yc::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--champagne-line)}
 .env-done .d-song{order:3;margin-top:2px;font-family:var(--f-disp);font-style:italic;font-weight:350;font-size:16.5px;color:var(--champagne);animation:rise-in .9s var(--ease) .35s both}
 .env-done .d-h{order:1}.env-done .d-s{order:2}.env-done .d-t{order:4}.env-done .d-a{order:5}
