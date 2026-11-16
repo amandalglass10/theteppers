@@ -1147,10 +1147,11 @@ html.gated .hero .names > *,html.gated .hero .slide img{animation-play-state:pau
 #travel .favs{padding-top:0}
 @media (max-width:699px){.na-row{grid-template-columns:1fr 12px;row-gap:2px}.na-time{grid-column:1;grid-row:2;text-align:left;font-size:14px}.na-row .fv-arr{grid-column:2;grid-row:1}}
 /* welcome party hosts: the invitation line, thin capitals over the names in the wordmark's script */
-.n-panel .hosted{margin-top:22px;display:flex;flex-direction:column;gap:10px}
+.n-panel .hosted{margin-top:22px;padding-top:20px;border-top:1px solid var(--champagne-line);display:flex;flex-direction:column;gap:10px}
+.n-panel .hosted + dl{border-top:0;padding-top:0}
 .n-panel .hosted .h-k{font-family:var(--f-caps);font-weight:500;text-transform:uppercase;letter-spacing:.24em;font-size:11.5px;line-height:1.4;color:var(--rose)}
 .n-panel .hosted .h-n{font-family:var(--f-script);font-weight:400;font-size:clamp(30px,2.5vw,38px);line-height:1.25;color:var(--green);white-space:nowrap}
-@media (max-width:899px){.n-panel .hosted{margin-top:16px;gap:8px}.n-panel .hosted .h-k{font-size:10.5px}.n-panel .hosted .h-n{font-size:clamp(23px,7vw,28px)}}
+@media (max-width:899px){.n-panel .hosted{margin-top:14px;padding-top:12px;gap:8px}.n-panel .hosted .h-k{font-size:10.5px}.n-panel .hosted .h-n{font-size:clamp(23px,7vw,28px)}}
 /* "You’re coming" sits on the date line, right-aligned, so it never pushes the panel up into the night dashes */
 .n-panel .yc{float:right;margin:-5px 0 0 12px}
 .n-panel .yc::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--champagne-line)}
@@ -1325,7 +1326,7 @@ It seems fitting that the next chapter should, too.</p>
         <div class="hosted"><p class="h-k" data-edit="hosted-by-label">Kindly hosted by</p><p class="h-n" data-edit="host-names">Mr. and Mrs. Richard N. Tepper</p></div>
         <dl>
           <dt class="label" data-edit="what">What</dt><dd data-edit="what-welcome">Drinks and dinner by the water to start the weekend.</dd>
-          <dt class="label" data-edit="time">Time</dt><dd data-edit="seven-o-clock-in-the-evening">7:00 PM</dd>
+          <dt class="label" data-edit="time">Time</dt><dd data-edit="seven-o-clock-in-the-evening">7:00 PM – 10:00 PM</dd>
           <dt class="label" data-edit="attire">Attire</dt><dd data-edit="attire-2">Beachy cocktail</dd>
         </dl>
         <div class="acts">
@@ -2097,7 +2098,7 @@ section.finale .g-switch button{color:var(--on-photo)}
   var form = document.getElementById('rsvpForm'), input = document.getElementById('guestName'), msg = document.getElementById('msg'), flow = document.getElementById('rsvpFlow');
   var stage = document.getElementById('envStage'), env = document.getElementById('env'), envTo = document.getElementById('envTo'), below = document.getElementById('envBelow'), cardName = document.getElementById('envCardName');
   var EVENTS = [
-    { key: 'welcome', name: 'Welcome Party', when: 'Thursday, January 28 · 7:00 PM' },
+    { key: 'welcome', name: 'Welcome Party', when: 'Thursday, January 28 · 7:00 PM to 10:00 PM' },
     { key: 'wedding', name: 'The Wedding', when: 'Friday, January 29 · 5:30 PM' },
     { key: 'brunch', name: 'Farewell Beach Party', when: 'Saturday, January 30 · 11:00 AM to 2:00 PM' }
   ];
