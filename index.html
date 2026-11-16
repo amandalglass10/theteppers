@@ -1071,6 +1071,7 @@ html.gated .hero .names > *,html.gated .hero .slide img{animation-play-state:pau
 .gate .g-note{margin:0;font-size:13px;line-height:1.5;font-weight:300;color:var(--ink-soft)}
 .gate .g-msg{margin:0;font-family:var(--f-disp);font-style:italic;font-weight:350;font-size:16px;line-height:1.45;color:var(--green)}
 .gate .g-msg:empty{display:none}
+.g-msg a,#msg a{color:inherit;text-decoration:underline;text-decoration-color:var(--champagne-line);text-underline-offset:3px;white-space:nowrap}
 .gate .g-btn{min-height:52px;background:transparent;color:var(--green);border:1px solid var(--green);border-radius:0;cursor:pointer;font-family:var(--f-caps);font-weight:500;text-transform:uppercase;letter-spacing:.22em;font-size:12px;transition:background .35s ease,color .35s ease}
 .gate .g-btn:hover{background:var(--green);color:var(--paper)}
 .gate .g-btn[disabled]{opacity:.6;cursor:default}
@@ -2143,7 +2144,7 @@ section.finale .g-switch button{color:var(--on-photo)}
     });
   }
   function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
-  function say(t){ msg.textContent = t || ''; }
+  function say(t){ msg.textContent = ''; var parts = String(t || '').split('(914) 364-1653'); parts.forEach(function(x, i){ if (i) { var a = document.createElement('a'); a.href = 'sms:+19143641653'; a.textContent = '(914) 364-1653'; msg.appendChild(a); } msg.appendChild(document.createTextNode(x)); }); }
   function closed(){ return new Date() >= DEADLINE; }
   function wait(ms){ return new Promise(function(r){ setTimeout(r, reduce ? 0 : ms); }); }
   function arrow(){ return '<svg width="20" height="12" viewBox="0 0 20 12" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 6h18M13 1l5 5-5 5"/></svg>'; }
@@ -2181,13 +2182,13 @@ section.finale .g-switch button{color:var(--on-photo)}
     if (!q) { say('Please write your name as it appears on your invitation.'); input.focus(); return; }
     say('Looking for your invitation…');
     await ready;
-    if (!db) { say('Replies are only available when you\'re signed in. Please sign in and try again, or reach out to Amanda or Joey.'); return; }
+    if (!db) { say('Replies are only available when you\'re signed in. Please sign in and try again, or text Amanda at (914) 364-1653.'); return; }
     var found;
     try { var res = await TP.find(q); found = res && res.ok ? res.parties : (res && res.error === 'need_full_name' ? null : undefined); }
     catch (err) { say('We couldn\'t reach the guest list just now. Please try again in a moment.'); return; }
     if (found === undefined) { say('We couldn\'t reach the guest list just now. Please try again in a moment.'); return; }
     if (found === null) { say('Please write your first and last name.'); return; }
-    if (!found.length) { say('We couldn\'t find that name. Try it exactly as it appears on your envelope, or reach out to Amanda or Joey.'); return; }
+    if (!found.length) { say('We couldn\'t find that name. Try it exactly as it appears on your envelope, or text Amanda at (914) 364-1653.'); return; }
     say('');
     if (found.length === 1) found1(found[0]); else pick(found);
   });
@@ -2213,7 +2214,7 @@ section.finale .g-switch button{color:var(--on-photo)}
     await wait(1500);
     busy = false;
     if (saved && saved.updatedAt) { env.classList.add('posted'); done(saved, true); return; }
-    if (closed()) { below.appendChild(el('p', 'r-sub', 'Replies closed on December 1. Please reach out to Amanda or Joey with any changes.')); below.appendChild(link('Search for a different name', again)); return; }
+    if (closed()) { below.appendChild(el('p', 'r-sub', 'Replies closed on December 1. Please text Amanda at (914) 364-1653 with any changes.')); below.appendChild(link('Search for a different name', again)); return; }
     below.appendChild(pill('Open your invitation', '', openUp));
     below.appendChild(link('Not you? Search again', again));
   }
@@ -2315,7 +2316,7 @@ section.finale .g-switch button{color:var(--on-photo)}
       var doc = { envelope: current.envelope, members: state.members.map(function(m){ return { name: m.name.trim(), guest: m.guest, events: m.events }; }), note: state.note.trim(), song: state.song.trim(), updatedAt: new Date().toISOString() };
       if (me) doc.by = me;
       try { var res = await TP.reply({ id: current.id, members: doc.members, song: doc.song, note: doc.note }); if (!res || !res.ok) throw { code: res && res.error }; doc = res.reply; current.reply = doc; }
-      catch (e2) { send.disabled = false; update(); err.textContent = (e2 && e2.code === 'closed') ? 'Replies closed on December 1. Please reach out to Amanda or Joey with any changes.' : 'Your reply didn\'t send. Please try again.'; return; }
+      catch (e2) { send.disabled = false; update(); err.textContent = (e2 && e2.code === 'closed') ? 'Replies closed on December 1. Please text Amanda at (914) 364-1653 with any changes.' : 'Your reply didn\'t send. Please try again.'; return; }
       saved = doc; document.dispatchEvent(new CustomEvent('teppers:rsvp', { detail: { party: current, reply: doc } })); sealUp(doc);
     }
   }
@@ -2772,7 +2773,7 @@ section.finale .g-switch button{color:var(--on-photo)}
     var n = p ? (p.members || []).filter(function(m){ return m.name && !m.guest; }).map(function(m){ return m.name.trim().split(/\s+/)[0]; }) : [];
     return n.length > 1 ? n.slice(0, -1).join(', ') + ' & ' + n[n.length - 1] : null;
   }
-  function say(t){ msg.textContent = t || ''; }
+  function say(t){ msg.textContent = ''; var parts = String(t || '').split('(914) 364-1653'); parts.forEach(function(x, i){ if (i) { var a = document.createElement('a'); a.href = 'sms:+19143641653'; a.textContent = '(914) 364-1653'; msg.appendChild(a); } msg.appendChild(document.createTextNode(x)); }); }
   function nope(t){ say(t); gate.classList.remove('shake'); void gate.offsetWidth; gate.classList.add('shake'); }
   function wait(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
   function title(t){ return t.trim().replace(/\s+/g, ' ').replace(/(^|[\s'-])(\p{L})/gu, function(m, a, b){ return a + b.toUpperCase(); }); }
@@ -2783,7 +2784,7 @@ section.finale .g-switch button{color:var(--on-photo)}
     if (!f.trim() || !l.trim()) { nope('Please enter both your first and last name.'); (f.trim() ? last : first).focus(); return; }
     go.disabled = true; say('');
     var res; try { res = await TP.gate(f, l); } catch (err) { go.disabled = false; nope('We couldn’t check the guest list just now. Please try again in a moment.'); return; }
-    if (!res || !res.ok) { go.disabled = false; nope('We couldn’t find that name. Try it exactly as it appears on your invitation, or reach out to Amanda or Joey.'); return; }
+    if (!res || !res.ok) { go.disabled = false; nope('We couldn’t find that name. Try it exactly as it appears on your invitation, or text Amanda at (914) 364-1653.'); return; }
     var party = res.party; who = res.who || null; var guest = { first: title(f), last: title(l) };
     if (party && party.id) guest.pid = party.id;
     G.store(guest);
