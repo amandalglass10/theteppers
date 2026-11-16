@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//theteppers.com//Wedding//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:wedding-20270129@theteppers.com
+DTSTAMP:20261116T150000Z
+DTSTART:20270129T220000Z
+DTEND:20270130T060000Z
+SUMMARY:Amanda & Joey’s Wedding
+LOCATION:The Addison\, 2 East Camino Real\, Boca Raton\, FL 33432
+DESCRIPTION:Please arrive at 5:00 PM. The ceremony begins promptly at 5:30 
+ PM. Black tie. Dinner and dancing to follow\, after party 11:00 PM to 1:00
+  AM.
+URL:https://theteppers.com/
+END:VEVENT
+END:VCALENDAR
