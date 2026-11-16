@@ -1128,6 +1128,24 @@ html.gated .hero .names > *,html.gated .hero .slide img{animation-play-state:pau
 /* Personal touches for the signed-in guest */
 .f-temp{margin-top:10px;font-family:var(--f-disp);font-style:italic;font-weight:350;font-size:17px;color:var(--rose)}
 .n-panel .yc{display:inline-flex;align-items:center;gap:8px;margin:0 0 10px;padding:5px 12px 5px 10px;border:1px solid var(--champagne-line);border-radius:999px;font-family:var(--f-caps);font-weight:500;text-transform:uppercase;letter-spacing:.18em;font-size:10.5px;color:var(--green)}
+/* Also nearby: other hotels, a quiet list between The Seagate and Our favorites, with equal room above and below */
+.nearby{max-width:760px;margin:0 auto;padding-top:clamp(56px,7vw,96px);padding-bottom:calc(clamp(56px,7vw,96px) - 20px);text-align:center}
+@media (min-width:900px){.nearby{padding-bottom:calc(clamp(56px,7vw,96px) - 6px)}}
+.nearby .label{display:block;color:var(--rose)}
+.nearby .na-h{margin:10px 0 0;font-family:var(--f-disp);font-weight:350;font-size:clamp(30px,3.4vw,44px);line-height:1.1;color:var(--green)}
+.nearby .na-intro{margin:12px auto 24px;max-width:48ch;font-family:var(--f-disp);font-style:italic;font-weight:300;font-size:clamp(17px,1.5vw,20px);line-height:1.55;color:var(--ink-soft)}
+.na-list{list-style:none;margin:0;padding:0;text-align:left;border-top:1px solid var(--champagne-line)}
+.na-row{display:grid;grid-template-columns:1fr auto 14px;align-items:baseline;column-gap:16px;padding:14px 0;border-bottom:1px solid rgba(47,52,38,.12);text-decoration:none;color:inherit}
+.na-row:hover .na-name{color:var(--rose)}
+.na-row:hover .fv-arr{transform:translate(2px,-2px);color:var(--rose)}
+.na-go{display:flex;flex-direction:column;gap:2px}
+.na-name{font-family:var(--f-caps);font-weight:500;text-transform:uppercase;letter-spacing:.16em;font-size:12.5px;line-height:1.5;color:var(--ink);transition:color .3s}
+.na-addr{font-size:13.5px;line-height:1.45;color:var(--ink-soft)}
+.na-time{font-family:var(--f-disp);font-style:italic;font-weight:350;font-size:15px;color:var(--green);text-align:right;white-space:nowrap}
+.na-row .fv-arr{align-self:start;margin-top:5px}
+#travel .feature{padding-bottom:0;margin-bottom:0}
+#travel .favs{padding-top:0}
+@media (max-width:699px){.na-row{grid-template-columns:1fr 12px;row-gap:2px}.na-time{grid-column:1;grid-row:2;text-align:left;font-size:14px}.na-row .fv-arr{grid-column:2;grid-row:1}}
 /* welcome party hosts: the invitation line, thin capitals over the names in the wordmark's script */
 .n-panel .hosted{margin-top:22px;display:flex;flex-direction:column;gap:10px}
 .n-panel .hosted .h-k{font-family:var(--f-caps);font-weight:500;text-transform:uppercase;letter-spacing:.24em;font-size:11.5px;line-height:1.4;color:var(--rose)}
@@ -1375,6 +1393,25 @@ It seems fitting that the next chapter should, too.</p>
             <div class="fi"><span class="fk">Questions</span><p data-edit="to-extend-your-stay-request-two-queen-be">To extend your stay, request two queen beds or use Marriott points, contact The Seagate at (561) 665‑4982 or groupreservations@seagatedelray.com.</p></div>
           </div>
       </div>
+    </div>
+    <div class="nearby wrap" id="nearby">
+      <p class="label" data-edit="also-nearby">Also nearby</p>
+      <h3 class="na-h" data-edit="other-places-to-stay">Other places to stay</h3>
+      <p class="na-intro" data-edit="nearby-intro">Prefer to stay elsewhere? Here are a few favorites close by. Our shuttles are open to every guest, and all of them depart from The&nbsp;Seagate.</p>
+      <ul class="na-list">
+          <li><a class="na-row" href="https://www.google.com/maps/search/?api=1&amp;query=The+Boca+Raton+501+E+Camino+Real+Boca+Raton+FL" target="_blank" rel="noopener" aria-label="The Boca Raton, directions">
+            <span class="na-go"><span class="na-name" data-edit="na1-name">The Boca Raton</span><span class="na-addr" data-edit="na1-addr">501 East Camino Real, Boca Raton</span></span>
+            <span class="na-time" data-edit="na1-time">8 min drive to The&nbsp;Addison</span><svg class="fv-arr" width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M2 9 9 2M3.5 2H9v5.5"/></svg>
+          </a></li>
+          <li><a class="na-row" href="https://www.google.com/maps/search/?api=1&amp;query=Waterstone+Resort+Marina+999+E+Camino+Real+Boca+Raton+FL" target="_blank" rel="noopener" aria-label="Waterstone Resort &amp; Marina, directions">
+            <span class="na-go"><span class="na-name" data-edit="na2-name">Waterstone Resort &amp; Marina</span><span class="na-addr" data-edit="na2-addr">999 East Camino Real, Boca Raton</span></span>
+            <span class="na-time" data-edit="na2-time">5 min drive to The&nbsp;Addison</span><svg class="fv-arr" width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M2 9 9 2M3.5 2H9v5.5"/></svg>
+          </a></li>
+          <li><a class="na-row" href="https://www.google.com/maps/search/?api=1&amp;query=Hyatt+Place+Boca+Raton+Downtown+100+E+Palmetto+Park+Rd+Boca+Raton+FL" target="_blank" rel="noopener" aria-label="Hyatt Place Boca Raton, directions">
+            <span class="na-go"><span class="na-name" data-edit="na3-name">Hyatt Place Boca Raton</span><span class="na-addr" data-edit="na3-addr">100 East Palmetto Park Rd, Boca Raton</span></span>
+            <span class="na-time" data-edit="na3-time">6 min drive to The&nbsp;Addison</span><svg class="fv-arr" width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M2 9 9 2M3.5 2H9v5.5"/></svg>
+          </a></li>
+      </ul>
     </div>
     <div class="favs wrap" id="favorites">
       <div class="fv-card">
